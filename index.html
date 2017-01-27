@@ -1,0 +1,142 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <title>InvertedIndex-App</title>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.8/angular.js"></script>
+  <script src="./src/inverted-index.js"></script>
+  <script src="./src/app.js"></script>
+</head>
+
+<body ng-app='Index'>
+  <div ng-controller="IndexCtrl">
+    <nav class="navbar navbar-inverse">
+      <div class="container-fluid">
+        <div class="navbar-header">
+
+          <a class="navbar-brand" href="#">InvertedIndex</a>
+        </div>
+        <ul class="nav navbar-nav">
+          <!--TODO-->
+          <!--<li><a href="#">About</a></li>-->
+          <!--<li><a href="#">Tutorial</a></li>-->
+        </ul>
+
+        <!--TODO-->
+        <!--<ul class="nav navbar-nav navbar-right">
+        <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+      </ul>-->
+        <form class="navbar-form navbar-right">
+          <div class="form-group">
+            <input type="text" class="form-control" placeholder="Search" ng-model="query">
+          </div>
+          <select id="drop-search" ng-model="fileSearch">
+        <option value="">--Select File--</option>
+        <option value="{{file}}" ng-repeat="file in fileCreated">{{file}}</option>
+      </select>
+          <button type="submit" class="btn btn-default" ng-click="searchIndex()">Search</button>
+        </form>
+      </div>
+    </nav>
+    <!--<div class="col-sm-4">
+      <h4>Please select file to upload here</h4>
+      <label class="btn btn-default btn-file">
+    Browse <input id="myjsonfile" file-model="myFile" accept=".json" type="file" style="display:none" multiple>
+</label>
+</div>-->
+    <div class="col-sm-4">
+      <h4>Please select file to upload here</h4>
+      <input type="file" file-model="myFile" name="Upload" id="myjsonfile" multiple/>
+    </div>
+
+    <div class="col-sm-4">
+      <h4>Choose File to upload</h4>
+      <select id="drop-select" ng-model="selectedFile">
+        <option value="">--Select File--</option>
+        <option value="{{file}}" ng-repeat="file in fileName">{{file}}</option>
+      </select>
+    </div>
+
+
+    <!--<div class="col-sm-4">
+      <h4>Choose File to upload</h4>
+      <button class="btn btn-default" ng-click="uploadFile()" type="button">Upload
+    </button>
+    </div>-->
+
+
+    <!--Display CREATE INDEX if file as been successfully uploaded-->
+    <div ng-show="myValue" class="row col-sm-4">
+      <h4>Create the Index of your selected File</h4>
+      <label class="btn btn-default btn-file">
+    Create Index <input id="" type="submit" ng-click="createIndex()" style="display:none">
+</label>
+</div>
+
+<br><br><br><br><br>
+
+
+<!--Alert Success messsage if file was successfully uploaded-->
+<!--<div ng-if="fileName.length" class="row">
+  <div class="col-md-8 col-md-offset-2 alert alert-success">
+    <strong>Success!</strong> &nbsp&nbsp&nbsp&nbsp&nbsp Your is an accepted json file type and as been uploaded
+  </div>
+</div>-->
+
+<!--Alert Success messsage for Index Creation-->
+<div ng-show="myIndex" class="ng-hide row">
+  <div class="col-md-8 col-md-offset-2 alert alert-success">
+    <strong>Success!</strong> &nbsp&nbsp&nbsp&nbsp&nbsp Index Created
+  </div>
+</div>
+<!--Alert danger messsage if file was not uploaded successfully/invalidJsonFile-->
+<div ng-show="errorShow" class="ng-hide row">
+  <div class="col-md-8 col-md-offset-2 alert alert-danger">
+    <strong>Not a Json File!</strong> &nbsp&nbsp&nbsp&nbsp&nbsp Please upload a valid JSON file
+  </div>
+</div>
+
+<br><br><br>
+
+
+<div class="container ">
+  <div class="jumbotron col-sm-12">
+
+    <div class="container">
+      <h2>Index Table</h2>
+      <p>The following are the indexes of your file(s):</p>
+
+      <table class="table table-inverse table-bordered">
+
+        <thead>
+          <tr>
+            <th>{{selectedFile}}</th>
+            <th ng-repeat="num in renderNumber" >{{'Doc_'+(num+1)}}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr ng-repeat="(key,value) in result">
+            <td>
+              {{key}}
+            </td>
+            <td ng-repeat="num in renderNumber">
+              <span ng-repeat="val in value">
+              <span ng-if="val == (num+1)" class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+              </span>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+</div>
+</body>
+
+</html>
