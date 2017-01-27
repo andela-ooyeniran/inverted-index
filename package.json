@@ -31,6 +31,5 @@
     "karma-chrome-launcher": "^2.0.0",
     "karma-firefox-launcher": "^1.0.0",
     "karma-jasmine": "^1.1.0"
-  },
-   "engine": "node >= 6.9.1"
-}
+  } 
+}  
