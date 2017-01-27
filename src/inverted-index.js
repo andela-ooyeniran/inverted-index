@@ -24,7 +24,6 @@ class InvertedIndex {
    * @memberOf InvertedIndex
    */
   createIndex(fileContent, fileName) {
-    console.log(fileContent);
     this.docCount = [];
     fileContent.forEach((bookContent, docIndex) => {
       this.docCount.push(parseInt(docIndex, 10));
