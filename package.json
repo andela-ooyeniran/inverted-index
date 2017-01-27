@@ -4,8 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "gulp test",
-    "start": "$(npm bin)/gulp"
+    "start": "gulp",
+    "test": "gulp test"    
   },
   "repository": {
     "type": "git",
