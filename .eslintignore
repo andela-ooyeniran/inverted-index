@@ -1,1 +1,2 @@
 karma.conf.js
+jasmine/lib/jasmine-2.3.4/*.js
