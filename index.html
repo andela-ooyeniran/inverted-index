@@ -52,7 +52,7 @@
 </div>-->
     <div class="col-sm-4">
       <h4>Please select file to upload here</h4>
-      <input type="file" file-model="myFile" name="Upload" id="myjsonfile" multiple/>
+      <input type="file" file-model="myFile" accept="json" name="Upload" id="myjsonfile" multiple/>
     </div>
 
     <div class="col-sm-4">
@@ -83,29 +83,28 @@
 
 
 <!--Alert Success messsage if file was successfully uploaded-->
-<!--<div ng-if="fileName.length" class="row">
+<div ng-if="fileName.length" class="row">
   <div class="col-md-8 col-md-offset-2 alert alert-success">
-    <strong>Success!</strong> &nbsp&nbsp&nbsp&nbsp&nbsp Your is an accepted json file type and as been uploaded
+    <strong>Success!</strong> &nbsp&nbsp&nbsp&nbsp&nbsp Your file is an accepted json file type.
   </div>
-</div>-->
-
+</div>
 <!--Alert Success messsage for Index Creation-->
-<div ng-show="myIndex" class="ng-hide row">
+<div ng-if="result">
   <div class="col-md-8 col-md-offset-2 alert alert-success">
     <strong>Success!</strong> &nbsp&nbsp&nbsp&nbsp&nbsp Index Created
   </div>
 </div>
 <!--Alert danger messsage if file was not uploaded successfully/invalidJsonFile-->
-<div ng-show="errorShow" class="ng-hide row">
+<div ng-if="error.length > 0">
   <div class="col-md-8 col-md-offset-2 alert alert-danger">
-    <strong>Not a Json File!</strong> &nbsp&nbsp&nbsp&nbsp&nbsp Please upload a valid JSON file
+    <strong>{{error}}</strong>
   </div>
 </div>
 
 <br><br><br>
 
 
-<div class="container ">
+<div class="container">
   <div class="jumbotron col-sm-12">
 
     <div class="container">
