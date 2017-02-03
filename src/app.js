@@ -1,4 +1,5 @@
-(() => {
+  /* global angular InvertedIndex document FileReader*/
+/* eslint no-undef: "error"*/
   const app = angular.module('Index', []);
   app.controller('IndexCtrl', ($scope) => {
     const newIndex = new InvertedIndex();
@@ -27,22 +28,22 @@
       const reader = new FileReader();
       if (!file.name.match(/\.json$/)) {
         $scope.$apply(() => {
-          $scope.error = "File is not JSON";
+          $scope.error = 'Invalid File type retry with a JSON file ';
         });
         return;
       }
       reader.onloadend = (event) => {
-        this.readybooks = JSON.parse(event.target.result);
-        $scope.check = newIndex.validateFile(this.readybooks);
+        const readybooks = JSON.parse(event.target.result);
+        $scope.check = newIndex.validateFile(readybooks);
         if ($scope.check[0] === false) {
           $scope.$apply(() => {
             $scope.error = $scope.check[1];
           });
-            return;
+          return;
         }
         $scope.$apply(() => {
           $scope.fileName.push(file.name);
-          $scope.uploadedFiles[file.name] = this.readybooks;
+          $scope.uploadedFiles[file.name] = readybooks;
         });
       };
       reader.readAsBinaryString(file);
@@ -53,12 +54,12 @@
       $scope.renderNumber = newIndex.docNumber[$scope.selectedFile];
       // get the particular document number of the file selected
       $scope.fileCreated.push($scope.selectedFile);
-      $scope.getty = newIndex.getIndex($scope.selectedFile);
-      $scope.result = $scope.getty;
+      $scope.getFile = newIndex.getIndex($scope.selectedFile);
+      $scope.result = $scope.getFile;
     };
 
     $scope.searchIndex = () => {
       $scope.result = newIndex.searchIndex($scope.fileSearch, $scope.query);
     };
   });
-})();
+

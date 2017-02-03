@@ -21,35 +21,19 @@
 
           <a class="navbar-brand" href="#">InvertedIndex</a>
         </div>
-        <ul class="nav navbar-nav">
-          <!--TODO-->
-          <!--<li><a href="#">About</a></li>-->
-          <!--<li><a href="#">Tutorial</a></li>-->
-        </ul>
-
-        <!--TODO-->
-        <!--<ul class="nav navbar-nav navbar-right">
-        <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-        <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
-      </ul>-->
         <form class="navbar-form navbar-right">
           <div class="form-group">
             <input type="text" class="form-control" placeholder="Search" ng-model="query">
           </div>
-          <select id="drop-search" ng-model="fileSearch">
+
+          <select class="form-control" id="drop-search" ng-model="fileSearch">
         <option value="">--Select File--</option>
         <option value="{{file}}" ng-repeat="file in fileCreated">{{file}}</option>
-      </select>
+      </select>      
           <button type="submit" class="btn btn-default" ng-click="searchIndex()">Search</button>
         </form>
       </div>
     </nav>
-    <!--<div class="col-sm-4">
-      <h4>Please select file to upload here</h4>
-      <label class="btn btn-default btn-file">
-    Browse <input id="myjsonfile" file-model="myFile" accept=".json" type="file" style="display:none" multiple>
-</label>
-</div>-->
     <div class="col-sm-4">
       <h4>Please select file to upload here</h4>
       <input type="file" file-model="myFile" accept="json" name="Upload" id="myjsonfile" multiple/>
@@ -57,19 +41,11 @@
 
     <div class="col-sm-4">
       <h4>Choose File to upload</h4>
-      <select id="drop-select" ng-model="selectedFile">
+      <select class="form-control" id="drop-select" ng-model="selectedFile">
         <option value="">--Select File--</option>
         <option value="{{file}}" ng-repeat="file in fileName">{{file}}</option>
       </select>
     </div>
-
-
-    <!--<div class="col-sm-4">
-      <h4>Choose File to upload</h4>
-      <button class="btn btn-default" ng-click="uploadFile()" type="button">Upload
-    </button>
-    </div>-->
-
 
     <!--Display CREATE INDEX if file as been successfully uploaded-->
     <div ng-show="myValue" class="row col-sm-4">
@@ -85,7 +61,7 @@
 <!--Alert Success messsage if file was successfully uploaded-->
 <div ng-if="fileName.length" class="row">
   <div class="col-md-8 col-md-offset-2 alert alert-success">
-    <strong>Success!</strong> &nbsp&nbsp&nbsp&nbsp&nbsp Your file is an accepted json file type.
+    <strong>Success!</strong> &nbsp&nbsp&nbsp&nbsp&nbsp Your file(s) is an accepted json file type.
   </div>
 </div>
 <!--Alert Success messsage for Index Creation-->
@@ -116,7 +92,7 @@
         <thead>
           <tr>
             <th>{{selectedFile}}</th>
-            <th ng-repeat="num in renderNumber" >{{'Doc_'+(num+1)}}</th>
+            <th ng-repeat="num in renderNumber">{{'Doc_'+(num+1)}}</th>
           </tr>
         </thead>
         <tbody>

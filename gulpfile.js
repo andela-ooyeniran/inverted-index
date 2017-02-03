@@ -41,10 +41,10 @@ gulp.task('watch', ['browser-sync'], () => {
   gulp.watch('src/*.js', reload);
   gulp.watch('src/css/*.css', reload);
   gulp.watch('*.html').on('change', reload);
-  gulp.watch('jasmine/spec/inverted-index-test.js');
+  gulp.watch('jasmine/spec/inverted-index-test.js', reload);
 });
 
 // create a default task and just log a message
-gulp.task('default', ['browser-sync', 'scripts', 'watch'], () => {});
+gulp.task('default', ['browser-sync', 'scripts', 'watch']);
 
 gulp.task('test', ['scripts', 'karma']);
