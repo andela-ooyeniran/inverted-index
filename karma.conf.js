@@ -19,6 +19,13 @@ module.exports = function(config) {
       'jasmine/build/bundle.js'
     ],
 
+    plugins:[
+      'karma-coverage',
+      'karma-coveralls',
+      'karma-jasmine',
+      'karma-chrome-launcher'
+    ],
+
 
     // list of files to exclude
     exclude: [
