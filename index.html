@@ -21,17 +21,7 @@
 
           <a class="navbar-brand" href="#">InvertedIndex</a>
         </div>
-        <form class="navbar-form navbar-right">
-          <div class="form-group">
-            <input type="text" class="form-control" placeholder="Search" ng-model="query">
-          </div>
 
-          <select class="form-control" id="drop-search" ng-model="fileSearch">
-        <option value="">--Select File--</option>
-        <option value="{{file}}" ng-repeat="file in fileCreated">{{file}}</option>
-      </select>      
-          <button type="submit" class="btn btn-default" ng-click="searchIndex()">Search</button>
-        </form>
       </div>
     </nav>
     <div class="col-sm-4">
@@ -40,7 +30,7 @@
     </div>
 
     <div class="col-sm-4">
-      <h4>Choose File to upload</h4>
+      <h4>Choose File to Index</h4>
       <select class="form-control" id="drop-select" ng-model="selectedFile">
         <option value="">--Select File--</option>
         <option value="{{file}}" ng-repeat="file in fileName">{{file}}</option>
@@ -48,70 +38,110 @@
     </div>
 
     <!--Display CREATE INDEX if file as been successfully uploaded-->
-    <div ng-show="myValue" class="row col-sm-4">
+    <div ng-show="myValue" class="row col-sm-4" id="dialog">
       <h4>Create the Index of your selected File</h4>
       <label class="btn btn-default btn-file">
     Create Index <input id="" type="submit" ng-click="createIndex()" style="display:none">
 </label>
-</div>
+    </div>
 
-<br><br><br><br><br>
+    <br><br><br><br><br>
 
+    <!--Alert Success messsage if file was successfully uploaded-->
+    <div ng-if="fileName.length" class="row">
+      <div class="col-md-8 col-md-offset-2 alert alert-success">
+        <a href="#" class="close" data-dismiss="alert">&times;</a>
+        <strong>Success!</strong> &nbsp&nbsp&nbsp&nbsp&nbsp Your file(s) is an accepted json file type.
+      </div>
+    </div>
+    <!--Alert Success messsage for Index Creation-->
+    <div ng-if="result">
+      <div class="col-md-8 col-md-offset-2 alert alert-success">
+        <a href="#" class="close" data-dismiss="alert">&times;</a>
+        <strong>Success!</strong> &nbsp&nbsp&nbsp&nbsp&nbsp Index Created
+      </div>
+    </div>
+    <!--Alert danger messsage if file was not uploaded successfully/invalidJsonFile-->
+    <div ng-if="error.length > 0" id="dialog">
+      <div class="col-md-8 col-md-offset-2 alert alert-danger">
+        <strong>{{error}}</strong>
+      </div>
+    </div>
 
-<!--Alert Success messsage if file was successfully uploaded-->
-<div ng-if="fileName.length" class="row">
-  <div class="col-md-8 col-md-offset-2 alert alert-success">
-    <strong>Success!</strong> &nbsp&nbsp&nbsp&nbsp&nbsp Your file(s) is an accepted json file type.
-  </div>
-</div>
-<!--Alert Success messsage for Index Creation-->
-<div ng-if="result">
-  <div class="col-md-8 col-md-offset-2 alert alert-success">
-    <strong>Success!</strong> &nbsp&nbsp&nbsp&nbsp&nbsp Index Created
-  </div>
-</div>
-<!--Alert danger messsage if file was not uploaded successfully/invalidJsonFile-->
-<div ng-if="error.length > 0">
-  <div class="col-md-8 col-md-offset-2 alert alert-danger">
-    <strong>{{error}}</strong>
-  </div>
-</div>
-
-<br><br><br>
-
-
-<div class="container">
-  <div class="jumbotron col-sm-12">
+    <br><br><br>
 
     <div class="container">
-      <h2>Index Table</h2>
-      <p>The following are the indexes of your file(s):</p>
+      <div class="jumbotron col-sm-12">
+        <form class="navbar-form navbar-right">
+          <div class="form-group">
+            <input type="text" class="form-control" placeholder="Search" ng-model="query">
+          </div>
 
-      <table class="table table-inverse table-bordered">
+          <select class="form-control" id="drop-search" ng-model="fileSearch">
+        <option value="">--Select File--</option>
+        <option value="Allfiles">All files</option>
+        <option value="{{file}}" ng-repeat="file in fileCreated">{{file}}</option>
+      </select>
+          <button type="submit" class="btn btn-info" ng-click="searchIndex()">Search</button>
+        </form>
+        <div class="container">
+          <h2>Index Table</h2>
+          <table class="table table-inverse table-bordered" ng-show="!multipleSearchTable">
 
-        <thead>
-          <tr>
-            <th>{{selectedFile}}</th>
-            <th ng-repeat="num in renderNumber">{{'Doc_'+(num+1)}}</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr ng-repeat="(key,value) in result">
-            <td>
-              {{key}}
-            </td>
-            <td ng-repeat="num in renderNumber">
-              <span ng-repeat="val in value">
+            <thead>
+              <tr>
+                <th>{{selectedFile}}</th>
+                <th ng-repeat="num in renderNumber">{{'Doc_'+(num+1)}}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="(key,value) in result">
+                <td>
+                  {{key}}
+                </td>
+                <td ng-repeat="num in renderNumber">
+                  <span ng-repeat="val in value">
               <span ng-if="val == (num+1)" class="glyphicon glyphicon-ok" aria-hidden="true"></span>
-              </span>
-            </td>
-          </tr>
-        </tbody>
-      </table>
+                  </span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <table class="table table-bordered" ng-if="multipleSearchTable" ng-repeat="file in fileName">
+            <thead>
+              <tr>
+                <th colspan="100%">Search results for {{file}}</th>
+              </tr>
+              <tr>
+                <th>Search Query</th>
+                <th ng-repeat="num in renderNumber">{{'Doc_'+(num+1)}}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="(key,value) in searchResults[file]">
+                <td>
+                  {{key}}
+                </td>
+                <td ng-repeat="num in renderNumber">
+                  <span ng-repeat="val in value">
+              <span ng-if="val == (num+1)" class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                  </span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
     </div>
   </div>
-</div>
-</div>
+  <script>
+    window.setTimeout(function () {
+    $(".alert-success").fadeTo(500, 0).slideUp(500, function () {
+        $(this).remove();
+    });
+}, 5000);
+  </script>
 </body>
 
 </html>

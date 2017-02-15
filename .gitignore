@@ -29,3 +29,4 @@ node_modules
 coverage
 .coveralls.yml
 .DS_Store
+.env
