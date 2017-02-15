@@ -52,19 +52,18 @@
     $scope.createIndex = () => {
       newIndex.createIndex($scope.uploadedFiles[$scope.selectedFile], $scope.selectedFile);
       $scope.renderNumber = newIndex.docNumber[$scope.selectedFile];
-      // get the particular document number of the file selected
       $scope.fileCreated.push($scope.selectedFile);
       $scope.getFile = newIndex.getIndex($scope.selectedFile);
       $scope.result = $scope.getFile;
     };
 
     $scope.searchIndex = () => {
-      // $scope.result = newIndex.searchIndex($scope.fileSearch, $scope.query);
       if ($scope.fileSearch === 'Allfiles') {
         $scope.multipleSearchTable = true;
         $scope.searchQuery = $scope.query;
         $scope.searchResults = newIndex.searchIndex('Allfiles', $scope.searchQuery);
       } else {
+        $scope.singleSearchTable = true;
         $scope.multipleSearchTable = false;
         $scope.searchQuery = $scope.query;
         $scope.result = newIndex.searchIndex($scope.fileSearch, $scope.searchQuery);
