@@ -1,8 +1,7 @@
 [![Build Status](https://travis-ci.org/andela-ooyeniran/inverted-index.svg?branch=master)](https://travis-ci.org/andela-ooyeniran/inverted-index)
 [![Coverage Status](https://coveralls.io/repos/github/andela-ooyeniran/inverted-index/badge.svg?branch=master)](https://coveralls.io/github/andela-ooyeniran/inverted-index?branch=master)
 [![Code Climate](https://codeclimate.com/github/andela-ooyeniran/inverted-index/badges/gpa.svg)](https://codeclimate.com/github/andela-ooyeniran/inverted-index)
-
-
+[![Coverage Status](https://coveralls.io/repos/github/andela-ooyeniran/inverted-index/badge.svg)](https://coveralls.io/github/andela-ooyeniran/inverted-index)
 # inverted-index
 
 ### Introduction
@@ -26,7 +25,7 @@ An application that takes in a JSON array of text objects and creates an index f
 
 ### How to use the APP
 ##### For Web use
-Available via heroku hosted platform on : https://inverted-index-otoloye.herokuapp.com 
+Available via heroku hosted platform on : https://inverted-index-otoloye.herokuapp.com
 ##### Local Machine
 git clone https://github.com/andela-ooyeniran/inverted-index.git
 
