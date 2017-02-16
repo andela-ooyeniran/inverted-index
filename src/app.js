@@ -64,7 +64,6 @@
         $scope.searchResults = newIndex.searchIndex('Allfiles', $scope.searchQuery);
       } else {
         $scope.singleSearchTable = true;
-        $scope.multipleSearchTable = false;
         $scope.searchQuery = $scope.query;
         $scope.result = newIndex.searchIndex($scope.fileSearch, $scope.searchQuery);
       }
