@@ -64,6 +64,7 @@
     <!--Alert danger messsage if file was not uploaded successfully/invalidJsonFile-->
     <div ng-if="error.length > 0" id="dialog">
       <div class="col-md-8 col-md-offset-2 alert alert-danger">
+        <a href="#" class="close" data-dismiss="alert">&times;</a>
         <strong>{{error}}</strong>
       </div>
     </div>
@@ -100,14 +101,34 @@
                 </td>
                 <td ng-repeat="num in renderNumber">
                   <span ng-repeat="val in value">
-              <span ng-if="val == (num+1)" class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+              <span ng-if="val == (num)" class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                  </span>
+                </td>
+              </tr>
+            </tbody>
+          </table>
+          <table class="table table-inverse table-bordered" ng-if="singleSearchTable">
+            <thead>
+              <tr>
+                <th>{{fileSearch}}</th>
+                <th ng-repeat="num in renderNumber">{{'Doc_'+(num+1)}}</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr ng-repeat="(key,value) in result">
+                <td>
+                  {{key}}
+                </td>
+                <td ng-repeat="num in renderNumber">
+                  <span ng-repeat="val in value">
+              <span ng-if="val == (num)" class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                   </span>
                 </td>
               </tr>
             </tbody>
           </table>
 
-          <table class="table table-bordered" ng-if="multipleSearchTable" ng-repeat="file in fileName">
+          <table class="table table-bordered" ng-if="multipleSearchTable && !singleSearchTable" ng-repeat="file in fileName">
             <thead>
               <tr>
                 <th colspan="100%">Search results for {{file}}</th>
@@ -124,7 +145,7 @@
                 </td>
                 <td ng-repeat="num in renderNumber">
                   <span ng-repeat="val in value">
-              <span ng-if="val == (num+1)" class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+              <span ng-if="val == (num)" class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                   </span>
                 </td>
               </tr>

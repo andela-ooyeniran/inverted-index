@@ -24,9 +24,9 @@ class InvertedIndex {
    * @memberOf InvertedIndex
    */
   createIndex(fileContent, fileName) {
-    this.docCount = [];
+    const docCount = [];
     fileContent.forEach((bookContent, docIndex) => {
-      this.docCount.push(docIndex);
+      docCount.push(docIndex);
       const combinedWord = (`${bookContent.title} ${bookContent.text}`).toLowerCase();
       const tokens = InvertedIndex.tokenize(combinedWord);
       const remove = new Set(tokens);
@@ -34,7 +34,7 @@ class InvertedIndex {
       this.mapWords(getUnique, docIndex);
     });
     this.files[fileName] = this.index;
-    this.docNumber[fileName] = this.docCount;
+    this.docNumber[fileName] = docCount;
     this.index = {};
   }
 
@@ -49,9 +49,9 @@ class InvertedIndex {
   mapWords(texts, docID) {
     texts.forEach((text) => {
       if (text in this.index) {
-        this.index[text].push(docID + 1);
+        this.index[text].push(docID);
       } else {
-        this.index[text] = [docID + 1];
+        this.index[text] = [docID];
       }
     });
   }
