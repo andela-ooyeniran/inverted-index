@@ -18,9 +18,9 @@ class InvertedIndex {
   /**
    *
    * @method createIndex
-   * @param {any} fileContent
-   * @param {any} fileName
-   * @returns {string} returns createIndex
+   * @param {Object} fileContent
+   * @param {String} fileName
+   * @returns {Object[]} returns createIndex
    * @memberOf InvertedIndex
    */
   createIndex(fileContent, fileName) {
@@ -41,9 +41,9 @@ class InvertedIndex {
   /**
    *
    * @method mapWords
-   * @param {any} texts
-   * @param {any} docID
-   * @returns {string} returns mappred words
+   * @param {String} texts
+   * @param {number} docID
+   * @returns {string} returns mapped words
    * @memberOf InvertedIndex
    */
   mapWords(texts, docID) {
@@ -60,7 +60,7 @@ class InvertedIndex {
    *
    * @method statictokenize
    * @static
-   * @param {any} words
+   * @param {Object[]} words
    * @returns {string} returns tokenize words
    *
    * @memberOf InvertedIndex
@@ -72,7 +72,7 @@ class InvertedIndex {
   /**
    *
    * @method getIndex
-   * @param {any} fileName
+   * @param {String} fileName
    * @return{Object} index - That maps words to locations(documents)
    *
    * @memberOf InvertedIndex
@@ -84,9 +84,9 @@ class InvertedIndex {
   /**
    *
    * @method getIndex
-   * @param {any} fileName
-   * @param {any} query
-   * @return{Object} searchResults - Maps searched words to document locations
+   * @param {String} fileName
+   * @param {String} query
+   * @return{Object} searchResults
    *
    * @memberOf InvertedIndex
    */
@@ -105,9 +105,9 @@ class InvertedIndex {
 
    /**
    *
-   * @method getIndex
-   * @param {any} fileName
-   * @param {any} searchTerms
+   * @method searchFile
+   * @param {String} fileName
+   * @param {String} searchTerms
    * @return{Object} searchResults - Maps searched words to document locations
    *
    * @memberOf InvertedIndex
@@ -126,7 +126,7 @@ class InvertedIndex {
   /**
    *
    * @method validateFile
-   * @param {any} fileContent
+   * @param {Object} fileContent
    * @returns {String} returns validated file
    *
    * @memberOf InvertedIndex
