@@ -3,6 +3,7 @@
 const newIndex = new InvertedIndex();
 const validbook = require('../books.json');
 const emptyBook = require('../empty-book.json');
+const invalidBook = require('../no-title-books.json');
 
 newIndex.createIndex(validbook, 'fileName');
 // this is test suite
@@ -12,6 +13,12 @@ describe('Read book data', () => {
   });
   it('Should have the getIndex method defined', () => {
     expect(newIndex.getIndex).toBeDefined();
+  });
+  it('Should return false for invalid file', () => {
+    expect(InvertedIndex.validateFile(invalidBook)[0]).toEqual(false);
+  });
+  it('Should return true for valid file', () => {
+    expect(InvertedIndex.validateFile(validbook)[0]).toEqual(true);
   });
 });
 
