@@ -41,8 +41,22 @@ npm test
 ```sh
 npm start
 ```
-### Technologies
+### Technologies and services
 - Node.js
 - EchmaScript 6 (JavaScript 2015)
 - Angular.js
+- Jasmine (Test runner)
+- Gulp (Task runner)
+- Karma (Generate tests and coverage)
+- Travic CI (Continious Integration)
+- Coveralls (Test coverage percentage)
+- Hound CI (Check for style violations)
+- HTML/CSS (Frontend)
+- Code Climate
 
+### Contributions
+- Fork it!
+- Create your feature branch: git checkout -b my-new-feature
+- Commit your changes: git commit -m 'Add some feature'
+- Push to the branch: git push origin my-new-feature
+- Submit a pull request
