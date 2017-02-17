@@ -82,6 +82,7 @@ class InvertedIndex {
   searchIndex(query, fileName) {
     let searchResult = {};
     const searchTerms = query.toLowerCase().match(/\w+/g);
+
     fileName = fileName || 'Allfiles';
     if (fileName === 'Allfiles') {
       Object.keys(this.files).forEach((indexName) => {
@@ -104,6 +105,7 @@ class InvertedIndex {
    */
   searchFile(fileName, searchTerms) {
     const result = {};
+
     const index = this.getIndex(fileName);
     searchTerms.forEach((term) => {
       if (index[term]) {
@@ -123,7 +125,10 @@ class InvertedIndex {
    */
   static validateFile(fileContent) {
     if (typeof fileContent !== 'object' || fileContent.length === 0) {
-      return { status: false, msg: 'File is empty retry with a valid JSON file' };
+      return {
+        status: false,
+        msg: 'File is empty retry with a valid JSON file'
+      };
     }
     const jsonFile = fileContent;
     let check = true;
@@ -133,8 +138,14 @@ class InvertedIndex {
       }
     });
     if (!check) {
-      return { status: false, msg: 'Invalid File Content' };
+      return {
+        status: false,
+        msg: 'Invalid File Content'
+      };
     }
-    return { status: true, msg: 'File Uploaded Successfully' };
+    return {
+      status: true,
+      msg: 'File Uploaded Successfully'
+    };
   }
 }
