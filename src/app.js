@@ -9,7 +9,7 @@
     $scope.upload = true;
     $scope.myValue = false;
     $scope.error = '';
-
+    $scope.fileSearch = 'Allfiles';
     $scope.documents = [];
     $scope.details = {};
     $scope.docNo = newIndex.docCount;
@@ -35,9 +35,9 @@
       reader.onloadend = (event) => {
         const readybooks = JSON.parse(event.target.result);
         $scope.check = InvertedIndex.validateFile(readybooks);
-        if ($scope.check[0] === false) {
+        if ($scope.check.status === false) {
           $scope.$apply(() => {
-            $scope.error = $scope.check[1];
+            $scope.error = $scope.check.msg;
           });
           return;
         }
@@ -60,12 +60,13 @@
     $scope.searchIndex = () => {
       if ($scope.fileSearch === 'Allfiles') {
         $scope.multipleSearchTable = true;
+        $scope.singleSearchTable = false;
         $scope.searchQuery = $scope.query;
-        $scope.searchResults = newIndex.searchIndex('Allfiles', $scope.searchQuery);
+        $scope.searchResults = newIndex.searchIndex($scope.searchQuery, 'Allfiles');
       } else {
         $scope.singleSearchTable = true;
         $scope.searchQuery = $scope.query;
-        $scope.result = newIndex.searchIndex($scope.fileSearch, $scope.searchQuery);
+        $scope.result = newIndex.searchIndex($scope.searchQuery, $scope.fileSearch);
       }
     };
   });
