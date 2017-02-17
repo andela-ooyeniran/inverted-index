@@ -37,16 +37,16 @@ newIndex.createIndex(validbook, 'fileName');
 // this is test suite
 describe('Read book data', () => {
   it('Should return false for empty json file', () => {
-    expect(InvertedIndex.validateFile(emptyBook)[0]).toEqual(false);
+    expect(InvertedIndex.validateFile(emptyBook).status).toEqual(false);
   });
   it('Should have the getIndex method defined', () => {
     expect(newIndex.getIndex).toBeDefined();
   });
   it('Should return false for invalid file', () => {
-    expect(InvertedIndex.validateFile(invalidBook)[0]).toEqual(false);
+    expect(InvertedIndex.validateFile(invalidBook).status).toEqual(false);
   });
   it('Should return true for valid file', () => {
-    expect(InvertedIndex.validateFile(validbook)[0]).toEqual(true);
+    expect(InvertedIndex.validateFile(validbook).status).toEqual(true);
   });
 });
 
@@ -61,25 +61,28 @@ describe('Populate Index', () => {
 });
 
 describe('Search Index', () => {
-  newIndex.createIndex(validbook, 'fileName');
   it('Should return correct index of the search term', () => {
-    expect(newIndex.searchIndex('fileName', 'alice, a')).toEqual({
+    expect(newIndex.searchIndex('alice, a', 'fileName')).toEqual({
       alice: [0],
       a: [0, 1]
     });
   });
-  newIndex.createIndex(validbook, 'fileName');
   it('Should return correct index in an array search terms', () => {
-    expect(newIndex.searchIndex('fileName', 'alice, [hole,[a]]')).toEqual({
+    expect(newIndex.searchIndex('alice [hole]', 'fileName')).toEqual({
       alice: [0],
-      hole: [0],
-      a: [0, 1]
+      hole: [0]
+    });
+  });
+  it('Should check if searchFIle is defined', () => {
+    expect(newIndex.searchFile).toBeDefined();
+  });
+  it('Should return value for all files when no file is selected', () => {
+    expect(newIndex.searchIndex('alice, a')).toEqual({
+      fileName: { alice: [0],
+        a: [0, 1]
+      }
     });
   });
 });
-
-
-
-
 
 },{"../books.json":1,"../empty-book.json":2,"../no-title-books.json":3}]},{},[4])

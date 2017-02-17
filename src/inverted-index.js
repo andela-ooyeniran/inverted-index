@@ -11,7 +11,6 @@ class InvertedIndex {
    */
   constructor() {
     this.files = {};
-    this.index = {};
     this.docNumber = {};
   }
 
@@ -24,36 +23,26 @@ class InvertedIndex {
    * @memberOf InvertedIndex
    */
   createIndex(fileContent, fileName) {
+    const index = {};
     const docCount = [];
+
     fileContent.forEach((bookContent, docIndex) => {
       docCount.push(docIndex);
-      const combinedWord = (`${bookContent.title} ${bookContent.text}`).toLowerCase();
-      const tokens = InvertedIndex.tokenize(combinedWord);
+      const textWords = bookContent.text.toLowerCase();
+      const tokens = InvertedIndex.tokenize(textWords);
       const remove = new Set(tokens);
       const getUnique = Array.from(remove);
-      this.mapWords(getUnique, docIndex);
+      getUnique.forEach((text) => {
+        if (text in index) {
+          index[text].push(docIndex);
+        } else {
+          index[text] = [docIndex];
+        }
+      });
     });
-    this.files[fileName] = this.index;
-    this.docNumber[fileName] = docCount;
-    this.index = {};
-  }
 
-  /**
-   *
-   * @method mapWords
-   * @param {String} texts
-   * @param {number} docID
-   * @returns {string} returns mapped words
-   * @memberOf InvertedIndex
-   */
-  mapWords(texts, docID) {
-    texts.forEach((text) => {
-      if (text in this.index) {
-        this.index[text].push(docID);
-      } else {
-        this.index[text] = [docID];
-      }
-    });
+    this.files[fileName] = index;
+    this.docNumber[fileName] = docCount;
   }
 
   /**
@@ -83,16 +72,17 @@ class InvertedIndex {
 
   /**
    *
-   * @method getIndex
-   * @param {String} fileName
+   * @method searchIndex
    * @param {String} query
+   * @param {String} fileName
    * @return{Object} searchResults
    *
    * @memberOf InvertedIndex
    */
-  searchIndex(fileName, query) {
+  searchIndex(query, fileName) {
     let searchResult = {};
     const searchTerms = query.toLowerCase().match(/\w+/g);
+    fileName = fileName || 'Allfiles';
     if (fileName === 'Allfiles') {
       Object.keys(this.files).forEach((indexName) => {
         searchResult[indexName] = this.searchFile(indexName, searchTerms);
@@ -127,13 +117,13 @@ class InvertedIndex {
    *
    * @method validateFile
    * @param {Object} fileContent
-   * @returns {String} returns validated file
+   * @returns {Object} returns validated file
    *
    * @memberOf InvertedIndex
    */
   static validateFile(fileContent) {
     if (typeof fileContent !== 'object' || fileContent.length === 0) {
-      return [false, 'File is empty retry with a valid JSON file'];
+      return { status: false, msg: 'File is empty retry with a valid JSON file' };
     }
     const jsonFile = fileContent;
     let check = true;
@@ -143,8 +133,8 @@ class InvertedIndex {
       }
     });
     if (!check) {
-      return [false, 'Invalid File Content'];
+      return { status: false, msg: 'Invalid File Content' };
     }
-    return [true, 'File Uploaded Successfully'];
+    return { status: true, msg: 'File Uploaded Successfully' };
   }
 }
