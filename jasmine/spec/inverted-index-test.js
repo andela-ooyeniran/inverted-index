@@ -45,6 +45,14 @@ describe('Search Index', () => {
       hole: [0]
     });
   });
+
+  it('Should return correct index if query is an array', () => {
+    expect(newIndex.searchIndex(['alice', 'hole'], 'fileName')).toEqual({
+      alice: [0],
+      hole: [0]
+    });
+  });
+
   it('Should check if searchFIle is defined', () => {
     expect(newIndex.searchFile).toBeDefined();
   });
