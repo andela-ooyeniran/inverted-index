@@ -81,7 +81,11 @@ class InvertedIndex {
    */
   searchIndex(query, fileName) {
     let searchResult = {};
-    const searchTerms = query.toLowerCase().match(/\w+/g);
+    let searchTerms = query;
+
+    if (typeof query === 'string') {
+      searchTerms = query.toLowerCase().match(/\w+/g);
+    }
 
     fileName = fileName || 'Allfiles';
     if (fileName === 'Allfiles') {
